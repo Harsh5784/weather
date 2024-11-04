@@ -1,290 +1,45 @@
-body {
-  margin: 0;
-  font-family: 'Arial', sans-serif;
-  background-color: #0d1117; /* Dark background */
-  color: #e6eff1; /* Light text color */
-  transition: background 0.5s ease;
-}
-
-.app-container {
-  max-width: 100%; /* Full width */
-  margin: auto;
+/* PrivacyPolicy.css */
+.privacy-policy {
   padding: 20px;
-  background: rgba(30, 30, 30, 0.85); /* Semi-transparent background */
-  backdrop-filter: blur(15px); /* Glass effect */
-  border-radius: 15px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.7);
-  animation: fadeIn 0.5s ease-in-out;
+  max-width: 800px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  background-color: #f0f4f8; /* Light background */
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  color: #34495e; /* Dark gray text */
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.privacy-policy h1 {
+  font-size: 2.5em;
+  color: #2980b9; /* Teal blue */
+  margin-bottom: 20px;
+  border-bottom: 2px solid #3498db; /* Light blue underline */
+  padding-bottom: 10px;
 }
 
-.app-title {
-  text-align: center;
-  color: #ff6f61; /* Coral color */
+.privacy-policy h2 {
+  font-size: 1.8em;
+  color: #2c3e50; /* Darker blue */
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
-.weather-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.form-group {
+.privacy-policy p {
+  color: #555; /* Medium gray */
   margin-bottom: 15px;
-  width: 100%; /* Full width */
 }
 
-.location-input {
-  width: 90%; /* Set width */
-  padding: 10px;
-  border: 1px solid #ff6f61; /* Coral border */
-  border-radius: 5px;
-  outline: none;
-  background: rgba(50, 50, 50, 0.8); /* Darker input background */
-  color: #e6eff1; /* Input text color */
-  transition: border 0.3s ease;
-  margin: 0 auto; /* Center the input */
-  display: block; /* Ensures the input behaves as a block element */
+.privacy-policy ul {
+  list-style-type: disc;
+  padding-left: 20px;
 }
 
-.location-input:focus {
-  border-color: #ff8a65; /* Brighter coral on focus */
+.privacy-policy li {
+  margin-bottom: 10px;
 }
 
-.submit-button {
-  padding: 10px 15px;
-  background: #ff6f61; /* Button background */
-  color: #fff;
-  border: none;
-  margin: 0 auto; /* Center the button */
-  display: block; /* Ensures the button behaves as a block element */
-  width: 70%;
-  border-radius: 15px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.submit-button:hover {
-  background: transparent;
-  box-shadow: 0 0 20px 5px #ff6f61;
-}
-
-.error-message {
-  color: #f44336; /* Error red */
-  text-align: center;
-}
-
-.weather-info {
-  margin-top: 20px;
-  padding: 15px;
-  border: 1px solid #ff6f61; /* Coral border for weather info */
-  border-radius: 10px;
-  background: rgba(50, 50, 50, 0.85); /* Glassy effect for weather info */
-  backdrop-filter: blur(5px);
-  animation: slideIn 0.5s ease;
-}
-
-@keyframes slideIn {
-  from {
-    transform: translateY(-10px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-.location-title {
-  color: #ff6f61; /* Coral color for title */
-}
-
-.temperature-info {
-  display: flex;
-  align-items: center;
-  justify-content: center; /* Center align the temperature info */
-  flex-direction: row; /* Display temperature info horizontally */
-}
-
-.temperature-icon {
-  width: 100px; /* Adjust icon size */
-  height: 100px; /* Adjust icon size */
-  border-radius: 50%; /* Circular image */
-  margin-right: 15px; /* Space between icon and text */
-}
-
-.info-container {
-  display: flex;
-  justify-content: space-around; /* Space out items horizontally */
-  margin-top: 15px; /* Space between temperature and info */
-  width: 100%; /* Full width */
-}
-
-.info-item {
-  display: flex;
-  align-items: center; /* Center items vertically */
-  flex: 1; /* Equal space for each item */
-  margin: 0 10px; /* Margin between items */
-  min-width: 120px; /* Minimum width for better spacing */
-}
-
-.info-icon {
-  width: 30px; /* Set a width for the icons */
-  height: 30px; /* Set a height for the icons */
-  margin-right: 8px; /* Space between icon and text */
-}
-
-/* Mobile Styles */
-@media (max-width: 600px) {
-  .info-container {
-    flex-direction: column; /* Stack items vertically on mobile */
-  }
-
-  .info-item {
-    width: 100%; /* Full width for each item on mobile */
-  }
-
-  .temperature-info {
-    flex-direction: column; /* Stack temperature info vertically on mobile */
-    align-items: center; /* Center align items */
-  }
-}
-
-.air-quality {
-  margin-top: 20px;
-}
-
-.footer {
-  text-align: center;
-  margin-top: 20px;
-  font-size: 14px;
-  color: #b0bec5; /* Light gray for footer */
-}
-
-/* Responsive Styles */
-@media (max-width: 600px) {
-  .app-container {
-    padding: 15px; /* Adjust padding for smaller screens */
-  }
-  
-  .submit-button {
-    padding: 12px; /* Adjust button padding for smaller screens */
-  }
-
-  .location-input {
-    padding: 12px; /* Adjust input padding for smaller screens */
-  }
-
-  .weather-info {
-    padding: 10px; /* Adjust weather info padding for smaller screens */
-  }
-}
-.info-container {
-  display: flex;
-  justify-content: space-around; /* Space out items horizontally */
-  margin-top: 15px; /* Space between temperature and info */
-  width: 100%; /* Full width */
-}
-
-.info-item {
-  display: flex;
-  flex-direction: column; /* Stack label and value vertically */
-  align-items: center; /* Center items */
-  flex: 1; /* Equal space for each item */
-  margin: 0 10px; /* Margin between items */
-  min-width: 120px; /* Minimum width for better spacing */
-  color: #e6eff1; /* Light text color for visibility */
-}
-.info-icon {
-  width: 120px; /* Increased size */
-  height: 120px; /* Increased size */
-  border-radius: 50%; /* Circular shape */
-  margin-top: 50px;
-  margin-right: 8px; /* Space between icon and text */
-}
-
-.temperature-icon {
-  width: 120px; /* Adjust icon size */
-  height: 120px; /* Adjust icon size */
-  border-radius: 50%; /* Circular image */
-  margin-right: 15px; /* Space between icon and text */
-}
-.suggestions-list {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  color: #0d1117;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  max-height: 200px; /* Limit height for better usability */
-  overflow-y: auto; /* Scroll if needed */
-  position: absolute; /* Position relative to the input */
-  background-color: white; /* Background for the suggestions */
-  z-index: 1000; /* Ensure it appears above other elements */
-}
-
-.suggestion-item {
-  padding: 10px;
-  cursor: pointer;
-  transition: background-color 0.2s ease; /* Smooth transition for hover */
-}
-
-.suggestion-item:hover {
-  background-color: #f0f0f0; /* Highlight on hover */
-}
-
-.location-input {
-  position: relative; /* Needed for absolute positioning of suggestions */
-}
-
-/* Optional: Style the input field */
-.location-input {
-  width: 90%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
-}
-
-.air-quality {
-  margin-top: 50px;
-  text-align: center;
-}
-
-.air-quality-scroll {
-  display: flex;
-  overflow-x: auto; /* Enable horizontal scrolling */
-  white-space: nowrap; /* Prevent wrapping */
-  padding: 10px 0; /* Vertical padding */
-  color: #e6eff1; /* Text color */
-  border-radius: 10px; /* Rounded corners */
-}
-
-.air-quality-scroll span {
-  margin-right: 20px; /* Space between items */
-}
-.welcome-message {
-  text-align: center;
-  margin: 20px 0;
-  padding: 20px;
-  background: rgba(30, 30, 30, 0.85); /* Background similar to app container */
-  border-radius: 10px;
-  color: #e6eff1; /* Light text color */
-  animation: fadeIn 0.5s ease-in-out;
-}
-
-.welcome-message h2 {
-  color: #ff6f61; /* Coral color for the welcome title */
-}
-
-.welcome-message p {
-  margin: 5px 0;
+.privacy-policy strong {
+  color: #e67e22; /* Orange for emphasis */
 }

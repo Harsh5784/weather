@@ -1,182 +1,86 @@
-import { useState } from "react";
-import './App.css'; // Import the CSS file
-import axios from "axios";
-import coldImage from './assets/cold.png'; // Image for cold temperatures
-import hotImage from './assets/moderate.png'; // Image for moderate temperatures
-import moderateImage from './assets/high.png'; // Image for hot temperatures
-import humidityIcon from './assets/humidity.png'; // Humidity icon
-import windIcon from './assets/wspeed.png'; // Wind speed icon
 
-interface AirQuality {
-  co: number;
-  no2: number;
-  o3: number;
-  so2: number;
-  pm2_5: number;
-  pm10: number;
-}
+import './App.css';
 
-const App = () => {
-  const [location, setLocation] = useState<string>("");
-  const [inputValue, setInputValue] = useState<string>(""); // State for input value
-  const [suggestions, setSuggestions] = useState<string[]>([]); // State for city suggestions
-  const [temperature, setTemperature] = useState<number | null>(null);
-  const [feelsLike, setFeelsLike] = useState<number | null>(null);
-  const [humidity, setHumidity] = useState<number | null>(null);
-  const [windSpeed, setWindSpeed] = useState<number | null>(null);
-  const [airQuality, setAirQuality] = useState<AirQuality | null>(null);
-  const [error, setError] = useState<string | null>(null);
+const PrivacyPolicy = () => {
+    return (
+        <div className="privacy-policy">
+            <h1>Privacy Policy for Apna Weather</h1>
+            <p><strong>Effective Date:</strong> 22 September 2024</p>
 
-  const handleInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setInputValue(value);
+            <h2>1. Introduction</h2>
+            <p>
+                Welcome to Apna Weather! Your privacy is important to us. This Privacy Policy outlines how we collect, use, and protect your information when you use our app.
 
-    // Fetch city suggestions based on user input
-    if (value) {
-      try {
-        const apiKey = "d27c629e44564928a67190908242009"; // Replace with your actual API key
-        const response = await axios.get(`https://api.weatherapi.com/v1/search.json?key=${apiKey}&q=${value}`);
-        setSuggestions(response.data.map((city: any) => city.name)); // Assuming response has a 'name' property
-      } catch (error) {
-        console.error("Error fetching city suggestions:", error);
-      }
-    } else {
-      setSuggestions([]); // Clear suggestions if input is empty
-    }
-  };
+                Note - The weather details may be inaccurate in some circumstances and we are not responsible for it.
+            </p>
 
-  const handleSuggestionClick = (suggestion: string) => {
-    setInputValue(suggestion);
-    setSuggestions([]); // Clear suggestions after selection
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const loc = inputValue; // Use the state for the location
-    setLocation(loc);
-    setSuggestions([]); // Clear suggestions on form submission
-
-    const apiKey = "d27c629e44564928a67190908242009"; // Replace with your actual API key
-    const baseUrl = "https://api.weatherapi.com/v1/current.json";
-
-    axios.get(`${baseUrl}?key=${apiKey}&q=${loc}&aqi=yes`)
-      .then((response) => {
-        const data = response.data;
-
-        if (data && data.current) {
-          setTemperature(data.current.temp_c);
-          setFeelsLike(data.current.feelslike_c);
-          setHumidity(data.current.humidity);
-          setWindSpeed(data.current.wind_kph);
-          setAirQuality(data.current.air_quality || null);
-          setError(null);
-        } 
-      })
-      .catch((error) => {
-        setTemperature(null);
-        setFeelsLike(null);
-        setHumidity(null);
-        setWindSpeed(null);
-        setAirQuality(null);
-        setError(error.response ? error.response.data : error.message);
-      });
-  };
-
-  const getTemperatureImage = (temp: number | null) => {
-    if (temp === null) return null;
-
-    if (temp < 10) {
-      return coldImage; // Cold temperature image
-    } else if (temp >= 10 && temp < 25) {
-      return moderateImage; // Moderate temperature image
-    } else {
-      return hotImage; // Hot temperature image
-    }
-  };
-
-  return (
-    
-    <div className="app-container">
-      
-      <div className="welcome-message">
-          <h2>Welcome to Apna Weather!</h2>
-          <p>Enter a location to get the current weather information and air quality data.</p>
-          <p>Type a correct city name and select from the suggestions to get started.</p>
-        </div>
-      <form className="weather-form" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <input 
-            type="text" 
-            id="location" 
-            name="location" 
-            placeholder="Enter location" 
-            required 
-            value={inputValue} // Controlled input
-            onChange={handleInputChange} // Update input value on change
-            className="location-input"
-          />
-          {suggestions.length > 0 && (
-            <ul className="suggestions-list">
-              {suggestions.map((suggestion, index) => (
-                <li 
-                  key={index} 
-                  onClick={() => handleSuggestionClick(suggestion)} 
-                  className="suggestion-item"
-                >
-                  {suggestion}
-                </li>
-              ))}
+            <h2>2. Information We Collect</h2>
+            <ul>
+                <li><strong>Location Data:</strong> We collect precise location information to provide localized weather forecasts. This data may include your GPS coordinates and IP address.</li>
+                <li><strong>Usage Data:</strong> We collect information about how you use our app, including device information, operating system, and app version.</li>
+                <li><strong>Advertising Data:</strong> We may collect data to personalize ads and measure their effectiveness. This includes anonymized demographic information and interests.</li>
             </ul>
-          )}
-        </div>
-        <div className="form-group">
-          <button type="submit" className="submit-button">Get Weather</button>
-        </div>
-        {error && <p className="error-message">{error}</p>}
-      </form>
 
-      {temperature !== null && (
-        <div className="weather-info">
-          <h2 className="location-title">City : {location}</h2>
-          <div className="temperature-info">
-            <img 
-              src={getTemperatureImage(temperature) || ''} 
-              alt="Temperature" 
-              className="temperature-icon" 
-            />
-            <div>
-              <p>Temperature: {temperature} °C</p>
-              <p>Feels Like: {feelsLike} °C</p>
-            </div>
-          </div>
-          <div className="info-container">
-            <div className="info-item">
-              <img src={humidityIcon} alt="Humidity" className="info-icon" />
-              <span>Humidity: {humidity} %</span>
-            </div>
-            <div className="info-item">
-              <img src={windIcon} alt="Wind Speed" className="info-icon" />
-              <span>Wind Speed: {windSpeed} kph</span>
-            </div>
-          </div>
-          {airQuality && (
-            <div className="air-quality">
-              <h3>Air Quality</h3>
-              <p>CO: {airQuality.co}</p>
-              <p>NO2: {airQuality.no2}</p>
-              <p>O3: {airQuality.o3}</p>
-              <p>SO2: {airQuality.so2}</p>
-              <p>PM2.5: {airQuality.pm2_5}</p>
-              <p>PM10: {airQuality.pm10}</p>
-            </div>
-          )}
+            <h2>3. How We Use Your Information</h2>
+            <p>
+                We use the collected information for the following purposes:
+            </p>
+            <ul>
+                <li>To provide, maintain, and improve our app and services.</li>
+                <li>To personalize your experience with localized weather information and relevant advertisements.</li>
+                <li>To analyze usage patterns and enhance our app's performance.</li>
+                <li>To comply with legal obligations and protect our rights.</li>
+            </ul>
+
+            <h2>4. Cookies and Tracking Technologies</h2>
+            <p>
+                Our app may use cookies and similar tracking technologies to enhance your experience. You can control cookie preferences through your device settings.
+            </p>
+
+            <h2>5. Sharing Your Information</h2>
+            <p>
+                We do not sell your personal data. We may share your information with:
+            </p>
+            <ul>
+                <li><strong>Service Providers:</strong> Third-party vendors who assist us in operating the app and delivering services (e.g., advertising networks).</li>
+                <li><strong>Legal Authorities:</strong> If required by law or to protect our rights and safety.</li>
+            </ul>
+
+            <h2>6. Your Rights</h2>
+            <p>
+                Depending on your location, you may have the following rights regarding your personal data:
+            </p>
+            <ul>
+                <li>The right to access and receive a copy of your personal data.</li>
+                <li>The right to correct inaccurate or incomplete data.</li>
+                <li>The right to request the deletion of your data.</li>
+                <li>The right to object to or restrict processing of your data.</li>
+                <li>The right to data portability.</li>
+            </ul>
+            <p>
+                To exercise your rights, please contact us at [Insert Contact Information].
+            </p>
+
+            <h2>7. Data Security</h2>
+            <p>
+                We take the security of your information seriously and implement reasonable measures to protect it. However, no method of transmission over the Internet or electronic storage is 100% secure.
+            </p>
+
+            <h2>8. Changes to This Privacy Policy</h2>
+            <p>
+                We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new policy within the app. Please review this policy periodically for updates.
+            </p>
+
+            <h2>9. Contact Us</h2>
+            <p>
+                If you have any questions or concerns about this Privacy Policy, please contact us at:
+            </p>
+            <p>
+                <strong>Email:</strong> Harshbha30@gmail.com<br />
+                <strong>Address:</strong> LPU, Jalandhar, Punjab
+            </p>
         </div>
-      )}
-      <footer className="footer">
-        <p>&copy; 2024 Apna Weather</p>
-      </footer>
-    </div>
-  );
+    );
 };
 
-export default App;
+export default PrivacyPolicy;
